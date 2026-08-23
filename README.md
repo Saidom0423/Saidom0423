@@ -27,14 +27,11 @@
 $ cat about.txt
 ```
 
-> I am a Computer Science & Engineering student based in Pune, India. I specialize in building backend-heavy applications, robust REST APIs, cross-platform mobile apps, and peer-to-peer networking solutions. My engineering focus centers on clean API contracts, database schema optimization, distributed systems, and shipping production-ready products.
+Hi, I'm **Sai Dom**. I build backend-heavy applications, robust REST APIs, cross-platform mobile products, and networking systems.
 
-```text
-Currently building:
-- Grromio        -> Full-stack grooming service marketplace backend & web app
-- Hyperlink      -> High-speed P2P ad-hoc file transfer engine on Android (Flutter/Wi-Fi Direct)
-- Study Heatmap  -> Cross-platform productivity & habit tracker with cloud synchronization
-```
+- Currently building **[Grromio](https://github.com/Saidom0423/Grromio)**, **[Hyperlink](https://github.com/Saidom0423/Hyperlink)**, and **[Study Heatmap](https://github.com/Saidom0423/study_heatmap)**
+- Learning **Django REST Framework + Distributed Systems & Networking**
+- Fun fact: **I started coding seriously because I wanted to build software and tools I wished existed.**
 
 ---
 
