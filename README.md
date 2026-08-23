@@ -77,9 +77,9 @@ Currently building:
 
 <div align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Saidom0423/Saidom0423/output/snake-dark.svg" />
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Saidom0423/Saidom0423/output/snake.svg" />
-    <img src="https://raw.githubusercontent.com/Saidom0423/Saidom0423/output/snake-dark.svg" alt="GitHub contribution snake" width="100%" />
+    <source media="(prefers-color-scheme: dark)" srcset="assets/snake-dark.svg" />
+    <source media="(prefers-color-scheme: light)" srcset="assets/snake-light.svg" />
+    <img src="assets/snake-dark.svg" alt="GitHub contribution snake" width="100%" />
   </picture>
 </div>
 

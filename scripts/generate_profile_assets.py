@@ -85,6 +85,7 @@ def run_generators(script_dir):
     import generate_radar
     import generate_stats
     import generate_project_cards
+    import generate_snake
 
     print("  -> Running generate_radar.py...")
     generate_radar.run()
@@ -94,6 +95,9 @@ def run_generators(script_dir):
 
     print("  -> Running generate_project_cards.py...")
     generate_project_cards.run()
+
+    print("  -> Running generate_snake.py...")
+    generate_snake.run()
 
 def generate_portrait(assets_dir):
     print("[3/5] Generating profile halftone dot-matrix portrait PNG...")
