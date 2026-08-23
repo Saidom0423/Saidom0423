@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="assets/portrait.svg" alt="Sai Dom developer profile portrait" width="120" height="120" />
+  <img src="assets/portrait.png" alt="Sai Dom developer profile portrait" width="140" height="140" />
 
   <br />
 
@@ -8,7 +8,7 @@
   </a>
 
   <p>
-    Computer Science & Engineering Student @ Pimpri Chinchwad University, Pune<br/>
+    Final Year CSE Student @ Pimpri Chinchwad University, Pune<br/>
     Specializing in backend-heavy architecture, RESTful API design, mobile apps, and distributed networking.
   </p>
 
