@@ -21,7 +21,7 @@
     <text x="24" y="78" fill="#24292e" class="stat-num">1</text>
     <text x="24" y="96" fill="#57606a" class="stat-label">Total stars</text>
 
-    <text x="200" y="78" fill="#24292e" class="stat-num">12</text>
+    <text x="200" y="78" fill="#24292e" class="stat-num">11</text>
     <text x="200" y="96" fill="#57606a" class="stat-label">Public repos</text>
 
     <text x="380" y="78" fill="#24292e" class="stat-num">0</text>
