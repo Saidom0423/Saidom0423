@@ -16,163 +16,154 @@ def fetch_github_data():
 
         total_repos = len(repos_info)
         total_stars = sum(r.get("stargazers_count", 0) for r in repos_info)
-        total_forks = sum(r.get("forks_count", 0) for r in repos_info)
-
-        # Count languages
-        langs = {}
-        for r in repos_info:
-            l = r.get("language")
-            if l:
-                langs[l] = langs.get(l, 0) + 1
 
         return {
-            "name": user_info.get("name") or "Sai Dom",
+            "username": user_info.get("login") or "Saidom0423",
             "repos": total_repos,
             "stars": total_stars,
-            "forks": total_forks,
             "followers": user_info.get("followers", 0),
-            "following": user_info.get("following", 0),
-            "languages": langs,
-            "location": user_info.get("location") or "Pune, India"
+            "contributions": "100+",
+            "current_streak": 1,
+            "longest_streak": 5
         }
     except Exception as e:
-        print(f"Warning: Could not fetch live GitHub metrics ({e}), using cached profile data.")
+        print(f"Warning: Could not fetch live GitHub metrics ({e}), using default profile stats.")
         return {
-            "name": "Sai Dom",
+            "username": "Saidom0423",
             "repos": 11,
             "stars": 1,
-            "forks": 0,
             "followers": 0,
-            "following": 0,
-            "languages": {"Dart": 3, "JavaScript": 4, "Python": 1, "HTML": 3},
-            "location": "Pune, India"
+            "contributions": "100+",
+            "current_streak": 1,
+            "longest_streak": 5
         }
 
-def generate_stats_svg(data, dark_mode=True):
-    width, height = 480, 220
+def generate_gargi_stats_card(data, dark_mode=True):
+    width, height = 540, 360
 
     if dark_mode:
         bg = "#0d1117"
-        border = "#30363d"
-        title_color = "#58a6ff"
-        text_primary = "#c9d1d9"
-        text_secondary = "#8b949e"
-        accent = "#10b981"
-        card_bg = "#161b22"
-        card_border = "#21262d"
-    else:
-        bg = "#ffffff"
-        border = "#e1e4e8"
-        title_color = "#0969da"
-        text_primary = "#24292e"
-        text_secondary = "#57606a"
-        accent = "#059669"
-        card_bg = "#f6f8fa"
-        card_border = "#d0d7de"
-
-    stats_items = [
-        {"label": "Public Repositories", "val": str(data["repos"]), "icon": "📦"},
-        {"label": "Total Stars Earned", "val": str(data["stars"]), "icon": "⭐"},
-        {"label": "Primary Focus", "val": "Backend &amp; Mobile", "icon": "⚙️"},
-        {"label": "Location", "val": data["location"], "icon": "📍"},
-    ]
-
-    grid_cards = []
-    positions = [(20, 52), (245, 52), (20, 130), (245, 130)]
-    for i, item in enumerate(stats_items):
-        x, y = positions[i]
-        grid_cards.append(f"""
-    <rect x="{x}" y="{y}" width="215" height="68" rx="8" fill="{card_bg}" stroke="{card_border}" stroke-width="1"/>
-    <text x="{x + 14}" y="{y + 26}" fill="{text_secondary}" font-family="Fira Code, monospace" font-size="11">{item["icon"]} {item["label"]}</text>
-    <text x="{x + 14}" y="{y + 52}" fill="{accent}" font-family="Fira Code, monospace" font-size="15" font-weight="bold">{item["val"]}</text>
-    """)
-
-    svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="{width}" height="{height}">
-  <style>
-    .terminal-header {{ font-family: 'Fira Code', 'Courier New', monospace; font-size: 13px; font-weight: 600; }}
-  </style>
-  <rect width="{width}" height="{height}" rx="10" fill="{bg}" stroke="{border}" stroke-width="1.5"/>
-  
-  <!-- Header Bar -->
-  <circle cx="20" cy="20" r="4.5" fill="#ff5f56"/>
-  <circle cx="34" cy="20" r="4.5" fill="#ffbd2e"/>
-  <circle cx="48" cy="20" r="4.5" fill="#27c93f"/>
-  <text x="65" y="24" fill="{title_color}" class="terminal-header">$ ./fetch_github_metrics.sh</text>
-  <line x1="0" y1="38" x2="{width}" y2="38" stroke="{border}" stroke-width="1"/>
-
-  <!-- Stats Grid -->
-  {"".join(grid_cards)}
-</svg>"""
-    return svg
-
-def generate_languages_svg(dark_mode=True):
-    width, height = 480, 140
-
-    if dark_mode:
-        bg = "#0d1117"
-        border = "#30363d"
-        title_color = "#58a6ff"
+        border = "#21262d"
+        user_color = "#10b981"
+        meta_color = "#8b949e"
+        num_color = "#ffffff"
+        label_color = "#8b949e"
+        lang_title_color = "#38bdf8"
         text_color = "#c9d1d9"
+        sep_color = "#30363d"
     else:
         bg = "#ffffff"
-        border = "#e1e4e8"
-        title_color = "#0969da"
+        border = "#d0d7de"
+        user_color = "#059669"
+        meta_color = "#57606a"
+        num_color = "#24292e"
+        label_color = "#57606a"
+        lang_title_color = "#0969da"
         text_color = "#24292e"
+        sep_color = "#e1e4e8"
 
+    # Languages breakdown data
     lang_data = [
-        {"name": "Dart / Flutter", "pct": 42, "color": "#00B4AB"},
-        {"name": "JavaScript / React", "pct": 28, "color": "#F7DF1E"},
-        {"name": "Python / Django", "pct": 18, "color": "#3572A5"},
-        {"name": "HTML / CSS", "pct": 12, "color": "#e34c26"},
+        {"name": "Dart", "size": "184 kB", "pct": "42.0%", "val": 42.0, "color": "#00B4AB"},
+        {"name": "JavaScript", "size": "43.0 kB", "pct": "28.0%", "val": 28.0, "color": "#F7DF1E"},
+        {"name": "Python", "size": "17.5 kB", "pct": "18.0%", "val": 18.0, "color": "#3572A5"},
+        {"name": "Kotlin", "size": "12.0 kB", "pct": "7.0%", "val": 7.0, "color": "#7F52FF"},
+        {"name": "HTML/CSS", "size": "15.0 kB", "pct": "5.0%", "val": 5.0, "color": "#e34c26"},
     ]
 
-    # Bar elements
-    bar_x = 20
-    bar_y = 55
-    bar_w = 440
-    bar_h = 16
-
+    # Progress bar segments
+    bar_x = 24
+    bar_y = 230
+    bar_w = 492
+    bar_h = 10
     bar_rects = []
     curr_x = bar_x
     for l in lang_data:
-        w = (l["pct"] / 100.0) * bar_w
+        w = (l["val"] / 100.0) * bar_w
         bar_rects.append(f'<rect x="{curr_x}" y="{bar_y}" width="{w}" height="{bar_h}" fill="{l["color"]}" />')
         curr_x += w
 
-    # Legend items
-    legend_items = []
-    leg_x_positions = [20, 140, 280, 390]
-    for i, l in enumerate(lang_data):
-        lx = leg_x_positions[i]
-        ly = 102
-        legend_items.append(f"""
-    <circle cx="{lx + 6}" cy="{ly}" r="5" fill="{l["color"]}"/>
-    <text x="{lx + 16}" y="{ly + 4}" fill="{text_color}" font-family="Fira Code, monospace" font-size="11">{l["name"]} <tspan font-weight="bold">{l["pct"]}%</tspan></text>
+    # Language list grid (2 columns)
+    col1_items = [lang_data[0], lang_data[2], lang_data[3]]
+    col2_items = [lang_data[1], lang_data[4]]
+
+    col1_svg = []
+    for i, l in enumerate(col1_items):
+        y = 264 + (i * 22)
+        col1_svg.append(f"""
+    <circle cx="28" cy="{y - 4}" r="4" fill="{l["color"]}"/>
+    <text x="40" y="{y}" fill="{text_color}" font-family="Fira Code, monospace" font-size="12">{l["name"]}</text>
+    <text x="145" y="{y}" fill="{meta_color}" font-family="Fira Code, monospace" font-size="11">{l["size"]}</text>
+    <text x="220" y="{y}" fill="{meta_color}" font-family="Fira Code, monospace" font-size="11" font-weight="bold">{l["pct"]}</text>
+    """)
+
+    col2_svg = []
+    for i, l in enumerate(col2_items):
+        y = 264 + (i * 22)
+        col2_svg.append(f"""
+    <circle cx="288" cy="{y - 4}" r="4" fill="{l["color"]}"/>
+    <text x="300" y="{y}" fill="{text_color}" font-family="Fira Code, monospace" font-size="12">{l["name"]}</text>
+    <text x="405" y="{y}" fill="{meta_color}" font-family="Fira Code, monospace" font-size="11">{l["size"]}</text>
+    <text x="480" y="{y}" fill="{meta_color}" font-family="Fira Code, monospace" font-size="11" font-weight="bold">{l["pct"]}</text>
     """)
 
     svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="{width}" height="{height}">
   <style>
-    .terminal-header {{ font-family: 'Fira Code', 'Courier New', monospace; font-size: 13px; font-weight: 600; }}
+    .user-title {{ font-family: 'Fira Code', monospace; font-size: 18px; font-weight: 700; }}
+    .at-glance {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 12px; }}
+    .stat-num {{ font-family: 'Fira Code', monospace; font-size: 24px; font-weight: 700; }}
+    .stat-label {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 11px; }}
+    .lang-header {{ font-family: 'Fira Code', monospace; font-size: 14px; font-weight: 700; }}
+    .lang-sub {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 12px; }}
   </style>
-  <rect width="{width}" height="{height}" rx="10" fill="{bg}" stroke="{border}" stroke-width="1.5"/>
-  
-  <!-- Header Bar -->
-  <circle cx="20" cy="20" r="4.5" fill="#ff5f56"/>
-  <circle cx="34" cy="20" r="4.5" fill="#ffbd2e"/>
-  <circle cx="48" cy="20" r="4.5" fill="#27c93f"/>
-  <text x="65" y="24" fill="{title_color}" class="terminal-header">$ cat repo_languages.json</text>
-  <line x1="0" y1="38" x2="{width}" y2="38" stroke="{border}" stroke-width="1"/>
 
-  <!-- Progress Bar -->
+  <!-- Top Stats Container Card -->
+  <rect width="{width}" height="175" rx="12" fill="{bg}" stroke="{border}" stroke-width="1.5"/>
+
+  <!-- Card Header -->
+  <text x="24" y="34" fill="{user_color}" class="user-title">{data["username"]}</text>
+  <text x="{width - 24}" y="34" fill="{meta_color}" class="at-glance" text-anchor="end">at a glance</text>
+  <line x1="24" y1="48" x2="{width - 24}" y2="48" stroke="{sep_color}" stroke-width="1"/>
+
+  <!-- Row 1 Stats -->
+  <g>
+    <text x="24" y="78" fill="{num_color}" class="stat-num">{data["stars"]}</text>
+    <text x="24" y="96" fill="{label_color}" class="stat-label">Total stars</text>
+
+    <text x="200" y="78" fill="{num_color}" class="stat-num">{data["repos"]}</text>
+    <text x="200" y="96" fill="{label_color}" class="stat-label">Public repos</text>
+
+    <text x="380" y="78" fill="{num_color}" class="stat-num">{data["followers"]}</text>
+    <text x="380" y="96" fill="{label_color}" class="stat-label">Followers</text>
+  </g>
+
+  <!-- Row 2 Stats -->
+  <g>
+    <text x="24" y="132" fill="{num_color}" class="stat-num">{data["contributions"]}</text>
+    <text x="24" y="150" fill="{label_color}" class="stat-label">Contributions (1y)</text>
+
+    <text x="200" y="132" fill="{num_color}" class="stat-num">{data["current_streak"]}</text>
+    <text x="200" y="150" fill="{label_color}" class="stat-label">Current streak</text>
+
+    <text x="380" y="132" fill="{num_color}" class="stat-num">{data["longest_streak"]}</text>
+    <text x="380" y="150" fill="{label_color}" class="stat-label">Longest streak</text>
+  </g>
+
+  <!-- Bottom Languages Section -->
+  <text x="24" y="200" fill="{lang_title_color}" class="lang-header">💬 5 Languages</text>
+  <text x="{width / 2}" y="218" fill="{lang_title_color}" class="lang-sub" text-anchor="middle">Most used languages</text>
+
+  <!-- Multi-color Progress Bar -->
   <g clip-path="url(#bar-clip)">
     <clipPath id="bar-clip">
-      <rect x="{bar_x}" y="{bar_y}" width="{bar_w}" height="{bar_h}" rx="8"/>
+      <rect x="{bar_x}" y="{bar_y}" width="{bar_w}" height="{bar_h}" rx="5"/>
     </clipPath>
     {"".join(bar_rects)}
   </g>
 
-  <!-- Legend -->
-  {"".join(legend_items)}
+  <!-- 2-Column Languages List -->
+  {"".join(col1_svg)}
+  {"".join(col2_svg)}
 </svg>"""
     return svg
 
@@ -184,19 +175,14 @@ def run():
 
     data = fetch_github_data()
 
-    stats_dark = generate_stats_svg(data, dark_mode=True)
-    stats_light = generate_stats_svg(data, dark_mode=False)
+    stats_dark = generate_gargi_stats_card(data, dark_mode=True)
+    stats_light = generate_gargi_stats_card(data, dark_mode=False)
 
     with open(os.path.join(assets_dir, "stats-dark.svg"), "w", encoding="utf-8") as f:
         f.write(stats_dark)
     with open(os.path.join(assets_dir, "stats-light.svg"), "w", encoding="utf-8") as f:
         f.write(stats_light)
-    print("Generated stats-dark.svg and stats-light.svg")
-
-    langs_svg = generate_languages_svg(dark_mode=True)
-    with open(os.path.join(assets_dir, "languages.svg"), "w", encoding="utf-8") as f:
-        f.write(langs_svg)
-    print("Generated languages.svg")
+    print("Generated Gargi-style stats-dark.svg and stats-light.svg")
 
 if __name__ == "__main__":
     run()

@@ -117,24 +117,13 @@ $ ./list_skills.sh --all
 
 ## `~/` the numbers
 
-<table>
-<tr>
-<td width="50%" align="center">
+<div align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="assets/stats-dark.svg" />
     <source media="(prefers-color-scheme: light)" srcset="assets/stats-light.svg" />
-    <img src="assets/stats-dark.svg" alt="GitHub statistics overview" width="100%" />
+    <img src="assets/stats-dark.svg" alt="Saidom0423 GitHub statistics and most used languages" width="540" />
   </picture>
-</td>
-<td width="50%" align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/languages.svg" />
-    <source media="(prefers-color-scheme: light)" srcset="assets/languages.svg" />
-    <img src="assets/languages.svg" alt="Repository primary languages breakdown" width="100%" />
-  </picture>
-</td>
-</tr>
-</table>
+</div>
 
 ---
 
