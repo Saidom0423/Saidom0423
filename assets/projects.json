@@ -21,13 +21,13 @@
       "live": null
     },
     {
-      "id": "study-heatmap",
-      "name": "Study Heatmap",
-      "category": "Mobile Productivity",
-      "description": "Flutter productivity app featuring interactive study heatmaps, cloud state synchronization, and Firestore / Supabase auth.",
-      "technologies": ["Flutter", "Dart", "Firebase", "Firestore", "Supabase"],
-      "repository": "https://github.com/Saidom0423/study_heatmap",
-      "language": "Dart",
+      "id": "veyra",
+      "name": "Veyra",
+      "category": "Major Product / Mobile",
+      "description": "Cross-platform application architecture featuring modular backend APIs, real-time state synchronization, and scalable data models.",
+      "technologies": ["Flutter", "Dart", "Django", "DRF", "PostgreSQL"],
+      "repository": "https://github.com/Saidom0423/Veyra",
+      "language": "Dart / Python",
       "live": null
     },
     {

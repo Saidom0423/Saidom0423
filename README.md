@@ -29,7 +29,7 @@ $ cat about.txt
 
 Hi, I'm **Sai Dom**. I build backend-heavy applications, robust REST APIs, cross-platform mobile products, and networking systems.
 
-- Currently building **[Grromio](https://github.com/Saidom0423/Grromio)**, **[Hyperlink](https://github.com/Saidom0423/Hyperlink)**, and **[Study Heatmap](https://github.com/Saidom0423/study_heatmap)**
+- Currently building **[Grromio](https://github.com/Saidom0423/Grromio)**, **[Hyperlink](https://github.com/Saidom0423/Hyperlink)**, and **[Veyra](https://github.com/Saidom0423/Veyra)**
 - Learning **Django REST Framework + Distributed Systems & Networking**
 - Fun fact: **I started coding seriously because I wanted to build software and tools I wished existed.**
 
@@ -107,11 +107,11 @@ Hi, I'm **Sai Dom**. I build backend-heavy applications, robust REST APIs, cross
 </tr>
 <tr>
 <td width="50%" align="center">
-  <a href="https://github.com/Saidom0423/study_heatmap">
+  <a href="https://github.com/Saidom0423/Veyra">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="assets/cards/study-heatmap-dark.svg" />
-      <source media="(prefers-color-scheme: light)" srcset="assets/cards/study-heatmap-light.svg" />
-      <img src="assets/cards/study-heatmap-dark.svg" alt="Study Heatmap project" width="100%" />
+      <source media="(prefers-color-scheme: dark)" srcset="assets/cards/veyra-dark.svg" />
+      <source media="(prefers-color-scheme: light)" srcset="assets/cards/veyra-light.svg" />
+      <img src="assets/cards/veyra-dark.svg" alt="Veyra project" width="100%" />
     </picture>
   </a>
 </td>
@@ -131,6 +131,7 @@ Hi, I'm **Sai Dom**. I build backend-heavy applications, robust REST APIs, cross
 
 ## `~/` more work
 
+- 🔥 **[Study Heatmap](https://github.com/Saidom0423/study_heatmap)** - Cross-platform productivity & habit tracker with GitHub-style heatmaps and Supabase integration.
 - 🎓 **[Scholar AI](https://github.com/Saidom0423/scholar_ai)** - Full-stack academic assistant platform integrating Flutter mobile client & Python backend.
 - ✍️ **[Document Signature App](https://github.com/Saidom0423/document-signature-app)** - Digital document signing tool built with JavaScript, HTML canvas, and Express API.
 - 🧠 **[Feedforward](https://github.com/Saidom0423/Feedforward)** - Deep learning neural network experiments and Python feedback loops.
