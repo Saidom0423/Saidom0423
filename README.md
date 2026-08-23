@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="assets/portrait.png" alt="Sai Dom developer profile portrait" width="140" height="140" />
+  <img src="assets/portrait.png" alt="Sai Dom developer profile portrait" width="340" />
 
   <br />
 
