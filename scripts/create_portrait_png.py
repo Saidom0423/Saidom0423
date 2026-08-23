@@ -6,7 +6,7 @@ def generate_halftone_portrait():
     portrait_path = os.path.join(assets_dir, "portrait.png")
 
     if os.path.exists(portrait_path):
-        print(f"Using user's high-resolution halftone portrait at {portrait_path}.")
+        print(f"Using transparent halftone portrait at {portrait_path}.")
         return
 
     print("Warning: portrait.png not found.")
