@@ -1,0 +1,32 @@
+name: Regenerate Profile Assets
+
+on:
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-assets:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Generate & Validate Profile Assets
+        run: |
+          python scripts/generate_profile_assets.py
+
+      - name: Commit & Push Changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: auto-update profile SVG assets and statistics [skip ci]"
+          file_pattern: "assets/*.svg assets/cards/*.svg assets/skills.json assets/projects.json"

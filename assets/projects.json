@@ -1,0 +1,44 @@
+{
+  "projects": [
+    {
+      "id": "grromio",
+      "name": "Grromio",
+      "category": "Startup / Product",
+      "description": "Full-stack grooming service marketplace with modular DRF API backend, real-time scheduling, and production frontend deployment.",
+      "technologies": ["React", "Tailwind", "Django", "DRF", "PostgreSQL", "REST APIs"],
+      "repository": "https://github.com/Saidom0423/Grromio",
+      "language": "Python / React",
+      "live": "https://grromio.vercel.app"
+    },
+    {
+      "id": "hyperlink",
+      "name": "Hyperlink",
+      "category": "P2P Networking / Android",
+      "description": "High-performance P2P file sharing & discovery engine built with Wi-Fi Direct, TCP sockets, and MANET ad-hoc networking.",
+      "technologies": ["Flutter", "Dart", "Kotlin", "Wi-Fi Direct", "TCP", "MANET"],
+      "repository": "https://github.com/Saidom0423/Hyperlink",
+      "language": "Dart / Kotlin",
+      "live": null
+    },
+    {
+      "id": "study-heatmap",
+      "name": "Study Heatmap",
+      "category": "Mobile Productivity",
+      "description": "Flutter productivity app featuring interactive study heatmaps, cloud state synchronization, and Firestore / Supabase auth.",
+      "technologies": ["Flutter", "Dart", "Firebase", "Firestore", "Supabase"],
+      "repository": "https://github.com/Saidom0423/study_heatmap",
+      "language": "Dart",
+      "live": null
+    },
+    {
+      "id": "freelance",
+      "name": "Freelance Marketplace",
+      "category": "Full-Stack Marketplace",
+      "description": "Full-stack gig platform supporting service listings, client-freelancer communication workflows, and RESTful APIs.",
+      "technologies": ["React", "Node.js", "Express", "MongoDB", "REST APIs"],
+      "repository": "https://github.com/Saidom0423/freelance-marketplace",
+      "language": "JavaScript",
+      "live": null
+    }
+  ]
+}
