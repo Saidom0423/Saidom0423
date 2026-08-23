@@ -1,8 +1,43 @@
 import os
-import random
-import xml.etree.ElementTree as ET
+import re
+import urllib.request
 
-def generate_local_contribution_snake(dark_mode=True):
+def fetch_real_contribution_grid():
+    username = "Saidom0423"
+    url = f"https://github.com/users/{username}/contributions"
+    headers = {"User-Agent": "Mozilla/5.0"}
+    
+    # 52 weeks x 7 days grid
+    grid = [[0 for _ in range(7)] for _ in range(52)]
+    
+    try:
+        req = urllib.request.Request(url, headers=headers)
+        html = urllib.request.urlopen(req).read().decode("utf-8")
+
+        # Extract daily dates and data-level attributes
+        day_matches = re.findall(r'data-level="([0-9])"[^>]*data-date="([0-9]{4}-[0-9]{2}-[0-9]{2})"', html)
+        if not day_matches:
+            day_matches = re.findall(r'data-date="([0-9]{4}-[0-9]{2}-[0-9]{2})"[^>]*data-level="([0-9])"', html)
+            day_matches = [(l, d) for d, l in day_matches]
+
+        if day_matches:
+            # Sort by date
+            sorted_days = sorted(day_matches, key=lambda x: x[1])
+            # Take last 364 days (52 weeks x 7)
+            recent_364 = sorted_days[-364:]
+            
+            for idx, (lvl, dt) in enumerate(recent_364):
+                col = idx // 7
+                row = idx % 7
+                if col < 52 and row < 7:
+                    grid[col][row] = int(lvl)
+            print(f"Parsed {len(recent_364)} real daily contribution records for Saidom0423.")
+    except Exception as e:
+        print(f"Notice: Could not parse live contribution grid ({e}).")
+
+    return grid
+
+def generate_real_contribution_snake(dark_mode=True):
     width, height = 850, 160
     
     if dark_mode:
@@ -11,7 +46,13 @@ def generate_local_contribution_snake(dark_mode=True):
         title_color = "#58a6ff"
         text_color = "#8b949e"
         empty_dot = "#161b22"
-        levels = ["#0e4429", "#006d32", "#26a641", "#39d353"]
+        levels = {
+            0: "#161b22",
+            1: "#0e4429",
+            2: "#006d32",
+            3: "#26a641",
+            4: "#39d353"
+        }
         snake_head = "#38bdf8"
         snake_body = "#10b981"
     else:
@@ -20,11 +61,18 @@ def generate_local_contribution_snake(dark_mode=True):
         title_color = "#0969da"
         text_color = "#57606a"
         empty_dot = "#ebedf0"
-        levels = ["#9be9a8", "#40c463", "#30a14e", "#216e39"]
+        levels = {
+            0: "#ebedf0",
+            1: "#9be9a8",
+            2: "#40c463",
+            3: "#30a14e",
+            4: "#216e39"
+        }
         snake_head = "#0969da"
         snake_body = "#059669"
 
-    # Grid 52 weeks x 7 days
+    # Grid settings
+    grid_data = fetch_real_contribution_grid()
     cols = 52
     rows = 7
     square_size = 11
@@ -32,31 +80,36 @@ def generate_local_contribution_snake(dark_mode=True):
     start_x = 40
     start_y = 45
 
-    # Random seed based on user for consistent contribution graph
-    random.seed(423)
-
     rects = []
+    active_cells = []
     for c in range(cols):
         for r in range(rows):
             x = start_x + c * (square_size + gap)
             y = start_y + r * (square_size + gap)
             
-            # Determine contribution level
-            rand_val = random.random()
-            if rand_val > 0.70:
-                color = random.choice(levels)
-            else:
-                color = empty_dot
+            lvl = grid_data[c][r]
+            color = levels.get(lvl, empty_dot)
+            if lvl > 0:
+                active_cells.append((x, y))
 
             rects.append(f'<rect x="{x}" y="{y}" width="{square_size}" height="{square_size}" rx="2" fill="{color}" />')
 
-    # Add snake path elements across graph
-    snake_cells = [(start_x + c * 15, start_y + (c % 7) * 15) for c in range(25, 42)]
+    # Draw snake animation path
     snake_dots = []
-    for i, (sx, sy) in enumerate(snake_cells):
-        color = snake_head if i == len(snake_cells) - 1 else snake_body
-        r = 6 if i == len(snake_cells) - 1 else 5
-        snake_dots.append(f'<circle cx="{sx + 5}" cy="{sy + 5}" r="{r}" fill="{color}" />')
+    if active_cells:
+        # Move snake across real active contribution cells
+        snake_cells = active_cells[-15:] if len(active_cells) >= 15 else active_cells
+        for i, (sx, sy) in enumerate(snake_cells):
+            color = snake_head if i == len(snake_cells) - 1 else snake_body
+            r = 6 if i == len(snake_cells) - 1 else 5
+            snake_dots.append(f'<circle cx="{sx + 5}" cy="{sy + 5}" r="{r}" fill="{color}" />')
+    else:
+        # Fallback snake position along mid graph if no active cells
+        snake_cells = [(start_x + c * 15, start_y + 3 * 15) for c in range(35, 45)]
+        for i, (sx, sy) in enumerate(snake_cells):
+            color = snake_head if i == len(snake_cells) - 1 else snake_body
+            r = 6 if i == len(snake_cells) - 1 else 5
+            snake_dots.append(f'<circle cx="{sx + 5}" cy="{sy + 5}" r="{r}" fill="{color}" />')
 
     # Month labels
     months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
@@ -89,7 +142,7 @@ def generate_local_contribution_snake(dark_mode=True):
   {"".join(month_labels)}
   {"".join(day_labels)}
 
-  <!-- Grid Cells -->
+  <!-- Real Grid Cells -->
   {"".join(rects)}
 
   <!-- Snake Trail -->
@@ -102,14 +155,14 @@ def run():
     project_root = os.path.abspath(os.path.join(script_dir, ".."))
     assets_dir = os.path.join(project_root, "assets")
 
-    dark_svg = generate_local_contribution_snake(dark_mode=True)
-    light_svg = generate_local_contribution_snake(dark_mode=False)
+    dark_svg = generate_real_contribution_snake(dark_mode=True)
+    light_svg = generate_real_contribution_snake(dark_mode=False)
 
     with open(os.path.join(assets_dir, "snake-dark.svg"), "w", encoding="utf-8") as f:
         f.write(dark_svg)
     with open(os.path.join(assets_dir, "snake-light.svg"), "w", encoding="utf-8") as f:
         f.write(light_svg)
-    print("Generated local assets/snake-dark.svg and assets/snake-light.svg!")
+    print("Generated real GitHub contribution snake-dark.svg and snake-light.svg!")
 
 if __name__ == "__main__":
     run()
