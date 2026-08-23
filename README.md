@@ -42,7 +42,7 @@ Currently building:
 
 <div align="center">
   <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=cpp,py,django,js,ts,dart,flutter,kotlin,react,nodejs,tailwind,postgres,mongodb,firebase,supabase,git,github,vscode,html,css&perline=10" alt="Sai Dom's Tech Toolbox" />
+    <img src="https://skillicons.dev/icons?i=py,django,js,ts,react,nodejs,express,flutter,dart,kotlin,cpp,postgres,mongodb,supabase,tailwind,html,css,git,github&perline=10" alt="Sai Dom's Tech Toolbox" />
   </a>
 </div>
 
