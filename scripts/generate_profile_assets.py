@@ -96,12 +96,10 @@ def run_generators(script_dir):
     generate_project_cards.run()
 
 def generate_portrait(assets_dir):
-    print("[3/5] Generating profile avatar portrait SVG...")
-    portrait_svg = generate_portrait_avatar(dark_mode=True)
-    portrait_path = os.path.join(assets_dir, "portrait.svg")
-    with open(portrait_path, "w", encoding="utf-8") as f:
-        f.write(portrait_svg)
-    print("  [OK] Generated assets/portrait.svg")
+    print("[3/5] Generating profile halftone dot-matrix portrait PNG...")
+    import create_portrait_png
+    create_portrait_png.generate_halftone_portrait()
+    print("  [OK] Generated assets/portrait.png")
 
 def validate_svgs(assets_dir):
     print("[4/5] Validating SVG files and XML structure...")
