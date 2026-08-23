@@ -15,7 +15,7 @@
   
     <rect x="20" y="52" width="215" height="68" rx="8" fill="#f6f8fa" stroke="#d0d7de" stroke-width="1"/>
     <text x="34" y="78" fill="#57606a" font-family="Fira Code, monospace" font-size="11">📦 Public Repositories</text>
-    <text x="34" y="104" fill="#059669" font-family="Fira Code, monospace" font-size="15" font-weight="bold">11</text>
+    <text x="34" y="104" fill="#059669" font-family="Fira Code, monospace" font-size="15" font-weight="bold">12</text>
     
     <rect x="245" y="52" width="215" height="68" rx="8" fill="#f6f8fa" stroke="#d0d7de" stroke-width="1"/>
     <text x="259" y="78" fill="#57606a" font-family="Fira Code, monospace" font-size="11">⭐ Total Stars Earned</text>

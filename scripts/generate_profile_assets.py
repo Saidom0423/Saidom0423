@@ -8,22 +8,52 @@ if hasattr(sys.stdout, 'reconfigure'):
     sys.stdout.reconfigure(encoding='utf-8')
 
 def generate_portrait_avatar(dark_mode=True):
-    width, height = 120, 120
+    width, height = 140, 140
     bg = "#0d1117" if dark_mode else "#ffffff"
     border = "#30363d" if dark_mode else "#e1e4e8"
     accent = "#10b981" if dark_mode else "#059669"
-    text_color = "#58a6ff" if dark_mode else "#0969da"
-    sub_color = "#c9d1d9" if dark_mode else "#24292e"
+
+    avatar_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "assets", "avatar.png")
+    if not os.path.exists(avatar_path):
+        import urllib.request
+        try:
+            url = "https://avatars.githubusercontent.com/u/143344009?v=4"
+            urllib.request.urlretrieve(url, avatar_path)
+        except Exception:
+            pass
+
+    b64_img = ""
+    if os.path.exists(avatar_path):
+        import base64
+        with open(avatar_path, "rb") as f:
+            b64_img = base64.b64encode(f.read()).decode("utf-8")
+
+    if b64_img:
+        img_element = f'<image href="data:image/png;base64,{b64_img}" x="16" y="16" width="108" height="108" clip-path="url(#avatar-clip)" />'
+    else:
+        text_color = "#58a6ff" if dark_mode else "#0969da"
+        img_element = f'<text x="70" y="70" fill="{text_color}" font-family="Fira Code, monospace" font-size="28" font-weight="bold" text-anchor="middle">SD</text>'
 
     svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="{width}" height="{height}">
-  <rect width="{width}" height="{height}" rx="60" fill="{bg}" stroke="{accent}" stroke-width="2.5"/>
-  <!-- Terminal Grid Pattern -->
-  <circle cx="60" cy="60" r="50" fill="none" stroke="{border}" stroke-width="1" stroke-dasharray="4 4"/>
-  <circle cx="60" cy="60" r="38" fill="none" stroke="{accent}" stroke-width="1" stroke-opacity="0.4"/>
-  
-  <!-- Monogram & Terminal Prompt -->
-  <text x="60" y="56" fill="{text_color}" font-family="Fira Code, monospace" font-size="24" font-weight="bold" text-anchor="middle">SD</text>
-  <text x="60" y="76" fill="{accent}" font-family="Fira Code, monospace" font-size="11" font-weight="600" text-anchor="middle">&gt;_ dev</text>
+  <defs>
+    <clipPath id="avatar-clip">
+      <circle cx="70" cy="70" r="54" />
+    </clipPath>
+  </defs>
+
+  <!-- Outer Styled Ring -->
+  <circle cx="70" cy="70" r="66" fill="{bg}" stroke="{accent}" stroke-width="2.5"/>
+  <circle cx="70" cy="70" r="60" fill="none" stroke="{border}" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- User Avatar Image -->
+  {img_element}
+
+  <!-- Overlay Accent Ring -->
+  <circle cx="70" cy="70" r="54" fill="none" stroke="{accent}" stroke-width="2"/>
+
+  <!-- Terminal Badge Pill -->
+  <rect x="35" y="112" width="70" height="20" rx="10" fill="{bg}" stroke="{border}" stroke-width="1.5"/>
+  <text x="70" y="125" fill="{accent}" font-family="Fira Code, monospace" font-size="10" font-weight="bold" text-anchor="middle">&gt;_ dev</text>
 </svg>"""
     return svg
 
